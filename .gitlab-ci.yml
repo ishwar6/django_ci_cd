@@ -34,5 +34,16 @@ Push Dev:
     - if: "$CI_COMMIT_BRANCH=='master' "  # to specify when to run the job, when our branch in master. 
   
 
+Push Release:
+ stage: Push
+ script:
+  - export TAGGED_ECR_REPO=$ECR_REPO:$(echo $CI_COMMIT_TAG | sed 's/-release//')  #to strip of the release no and append it to ECR_REPO
+  - docker tag proxy:latest $TAGGED_ECR_REPO
+  - docker push $TAGGED_ECR_REPO
+  - docker tag $TAGGED_ECR_REPO $ECR_REPO:latest
+  - docker push $ECR_REPO:latest
+
+ rulse:
+  - if: "$CI_COMMIT_BRANCH =~ /^*-release$/"
 
   
