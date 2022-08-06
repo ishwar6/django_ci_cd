@@ -1,0 +1,38 @@
+#gitlab ci uses docker images to run the pipeline and these images we have to define here. 
+image: docker:19.03.5
+services:
+  - docker:19.03.05-dind
+stages:
+  - Build
+  - Push
+
+before_script:
+    - apk add python3 #install it in our docker image
+    - pip3 install awscli==1.18.8  
+    - docker load --input data/image.tar #load the image from artifact from previous job 
+    - $(aws ecr get-login --no-include-email --region us-east-1)  #login command
+
+
+Build:
+  stage: Build
+  before_script: []
+  script: 
+    - mkdir data/
+    - docker build --compress -t proxy . # build our docker file in compress state in same path and tag it with "proxy"
+    - docker save --output data/image.tar proxy
+  artifacts:  # to pass file from one job to another
+    name: image
+    paths:
+      - data/
+
+Push Dev:
+  stage: Push
+  script: 
+    - docker tag proxy:latest $ECR_REPO:dev
+    - docker push $ECR_REPO:dev  #to push repo to AWS ECR
+  rules:
+    - if: "$CI_COMMIT_BRANCH=='master' "  # to specify when to run the job, when our branch in master. 
+  
+
+
+  
