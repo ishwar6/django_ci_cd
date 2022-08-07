@@ -1,7 +1,7 @@
 #gitlab ci uses docker images to run the pipeline and these images we have to define here. 
 image: docker:19.03.5
 services:
-  - docker:19.03.05-dind
+  - docker:19.03.5-dind
 stages:
   - Build
   - Push
@@ -31,7 +31,7 @@ Push Dev:
     - docker tag proxy:latest $ECR_REPO:dev
     - docker push $ECR_REPO:dev  #to push repo to AWS ECR
   rules:
-    - if: "$CI_COMMIT_BRANCH=='master' "  # to specify when to run the job, when our branch in master. 
+    - if: "$CI_COMMIT_BRANCH=='main' "  # to specify when to run the job, when our branch in main. 
   
 
 Push Release:
@@ -44,6 +44,6 @@ Push Release:
   - docker push $ECR_REPO:latest
 
  rulse:
-  - if: "$CI_COMMIT_BRANCH =~ /^*-release$/"
+  - if: "$CI_COMMIT_BRANCH =~ /^*-release$/"  #this will be triggered when anything ending with release comes. 
 
   
