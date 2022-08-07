@@ -1,10 +1,10 @@
 # django_ci_cd
 ## A CI CD Project based on Jenkins Tool for Django Project (Python)
-This is a Django project that runs a single page web application. It allows one eliminate the admin overhead that comes with testing your Django project in a production like environment. This will allow you make changes and see the effects almost immediately.
+This is a Django project that runs a single page web application. It allows one to eliminate the admin overhead that comes with testing your Django project in a production like environment. This will allow you to make changes and see the effects almost immediately.
 
-**1)** If you follow the youtube video then it means you'll be using Jenkins to set up a CI/CD pipeline. Now this project is specific to Django project but you can edit the files to fit your use case scenario. I'll be explaining what each file used in the pipeline does and variables you'll need to change for your project to run. Again this is specific for Django projects.
+**1)** If you follow the youtube video then it means you'll be using Jenkins to set up a CI/CD pipeline. Now this project is specific to Django project but you can edit the files to fit your use case scenario. I'll be explaining what each file used in the pipeline does and variables you'll need to change for your project to run. Again this is specific for Django projects. 
 
-**2)** `initial-setup.sh` - This file is the first file to look at when setting up this project. It installs the required packakages to make this project work such as Nginx, Jenkins, Python etc. Refer to the youtube video to see how and when it is used.
+**2)** `initial-setup.sh` - This file is the first file to look at when setting up this project. It installs the required packages to make this project work such as Nginx, Jenkins, Python etc. Refer to the youtube video to see how and when it is used.
 
 **3)** `Jenkinsfile` - This file contains the definition of the stages in the pipeline. The stages in this project's pipeline are `Setup Python Virtual Environment`, `Setup gunicorn service` and `Setup Nginx`. The stages in this pipeline just does two things. First it makes a file executable and then runs the file. The file carries out the commands that is described by the stage description.
 
