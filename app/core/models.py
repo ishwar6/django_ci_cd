@@ -1,3 +1,14 @@
-from django.db import models
+"""
+Database models.
+"""
+import uuid
+import os
 
-# Create your models here.
+from django.conf import settings
+from django.db import models
+from django.contrib.auth.models import (
+    AbstractBaseUser,
+    BaseUserManager,
+    PermissionsMixin,
+)
+
