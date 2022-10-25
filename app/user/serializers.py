@@ -12,7 +12,7 @@ class UserSerializer(serializers.ModelSerializer):
     """Serializer for the user model"""
     class Meta:
         model = USER
-        fields = ['email', 'phone', 'name' ]
+        fields = ['email', 'password', 'name' ]
         extra_kwargs = { # a dict to provide extra meta data 
             'password': 
                     {
@@ -22,6 +22,14 @@ class UserSerializer(serializers.ModelSerializer):
                         }
     def create(self, validated_data): 
         return USER.objects.create_user(**validated_data)
+    
+    def update(self, instance, validated_data):
+        password = validated_data.pop('password', None)
+        user = super().update(instance, validated_data)
+        if password:
+            user.set_password(password)
+            user.save()
+        return user
 
 class AuthTokenSerializer(serializers.Serializer):
     """Serializer for the user auth token."""
