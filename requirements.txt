@@ -1,2 +1,4 @@
 django
 gunicorn
+djangorestframework
+drf-spectacular
