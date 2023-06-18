@@ -17,7 +17,7 @@ class UserSerializer(serializers.ModelSerializer):
             'password': 
                     {
                         'write_only': True, 
-                        'min_length': 4
+                        'min_length': 10
                     }
                         }
     def create(self, validated_data): 
