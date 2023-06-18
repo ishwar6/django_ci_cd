@@ -5,7 +5,7 @@ LABEL maintainer="ishwarjangid"
 COPY ./default.conf.tpl /etc/nginx/default.conf.tpl
 COPY ./uwsgi_params /etc/nginx/uwsgi_params
 
-
+#nginx will listen for these configurations
 ENV LISTEN_PORT=8000
 ENV APP_PORT=9000
 ENV APP_HOST=app 
