@@ -10,6 +10,7 @@ ENV LISTEN_PORT=8000
 ENV APP_PORT=9000
 ENV APP_HOST=app 
 
+
 #switch to root user
 USER root 
 
