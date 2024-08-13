@@ -1,0 +1,1 @@
+# processing user-uploaded files (e.g., images, documents) and performing operations like virus scanning, image resizing, and metadata extraction.
