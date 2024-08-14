@@ -49,7 +49,8 @@ class QueryOptimizationMiddleware(MiddlewareMixin):
         """
         Apply lazy loading to the queryset to defer the loading of related data until absolutely necessary.
         
-        :param queryset: Django QuerySet object
+        :param queryset: Django QuerySet object 
+        
         :return: Lazy-loaded QuerySet
         """
         return queryset.select_related(None).defer(*[f.name for f in queryset.model._meta.get_fields()])
