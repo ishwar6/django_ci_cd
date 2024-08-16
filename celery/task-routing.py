@@ -121,3 +121,24 @@ def resize_image(self, file_path, size=(800, 600)):
     except Exception as exc:
         logger.error(f"Error in resize_image for {file_path}: {exc}")
         self.retry(exc=exc, countdown=5)
+
+@app.task(bind=True, max_retries=3)
+def extract_metadata(self, file_path):
+    """
+    Task to extract metadata from the uploaded file.
+    
+    :param file_path: Path to the uploaded file
+    :return: Extracted metadata
+    """
+    try:
+        # Simulating a potential intermittent failure
+        if random.choice([True, False]):
+            raise ValueError("Simulated metadata extraction failure")
+        
+        time.sleep(1.5)
+        return f"Metadata extracted from {file_path}"
+    except Exception as exc:
+        logger.error(f"Error in extract_metadata for {file_path}: {exc}")
+        self.retry(exc=exc, countdown=5)
+
+  
