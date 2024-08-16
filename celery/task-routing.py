@@ -141,4 +141,20 @@ def extract_metadata(self, file_path):
         logger.error(f"Error in extract_metadata for {file_path}: {exc}")
         self.retry(exc=exc, countdown=5)
 
-  
+
+
+router = TaskRouter(max_concurrency=3)
+router.add_task('virus_scan', virus_scan.delay)
+router.add_task('resize_image', resize_image.delay)
+router.add_task('extract_metadata', extract_metadata.delay)
+
+ 
+file1_result = router.route_task('virus_scan', '/path/to/file1')
+file2_result = router.route_task('resize_image', '/path/to/image2.jpg', size=(1024, 768))
+file3_result = router.route_task('extract_metadata', '/path/to/file3.docx')
+
+print(file1_result)
+print(file2_result)
+print(file3_result)
+ 
+print("Virus Scan Task History:", router.get_task_history('virus_scan'))
